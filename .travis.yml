@@ -7,13 +7,13 @@ cache:
 script: 
   - mvn -B package --file fridge-src/pom.xml -Dmaven.test.skip=true
 after_success:
-  - mkdir -p dist/
-  - tar -zcvf dist/fridge.tgz fridge-src/target/*.jar
-  - echo "[Latest Build](fridge.tgz)" > dist/index.md
+  - mkdir -p artifacts/
+  - tar -zcvf artifacts/Fridge.tgz fridge-src/target/*.jar
+  - echo "[Latest Build](Fridge.tgz)" > artifacts/index.md
 deploy:
   provider: pages
   skip_cleanup: true
   token: $GH_token
-  local_dir: dist/
+  local_dir: artifacts/
   on:
     branch: main
