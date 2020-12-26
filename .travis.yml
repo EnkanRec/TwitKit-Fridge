@@ -1,0 +1,19 @@
+language: java
+jdk:
+  - openjdk8
+cache:
+  directories:
+  - $HOME/.m2
+script: 
+  - mvn -B package --file fridge-src/pom.xml -Dmaven.test.skip=true
+after_success:
+  - mkdir -p dist/
+  - tar -zcvf dist/fridge.tgz fridge-src/target/*.jar
+  - echo "[Latest Build](fridge.tgz)" > dist/index.md
+deploy:
+  provider: pages
+  skip_cleanup: true
+  token: $GH_token
+  local_dir: dist/
+  on:
+    branch: main
