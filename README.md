@@ -1,5 +1,7 @@
 # TwitKit Fridge 
 
+[![Build Status](https://travis-ci.com/EnkanRec/TwitKit-Fridge.svg?branch=main)](https://travis-ci.com/EnkanRec/TwitKit-Fridge)
+
 TwitKit的数据库后端，因为是存**生肉**的，所以是冰箱。
 
 ## 依赖
