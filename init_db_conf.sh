@@ -11,7 +11,7 @@ else
     PASS=`date|md5sum|head -c16`
 fi
 
-sudo mysql << MYSQL_SCRIPT
+mysql -u root -p << MYSQL_SCRIPT
 CREATE DATABASE $DB;
 CREATE USER '$DB'@'localhost' IDENTIFIED BY '$PASS';
 GRANT ALL PRIVILEGES ON $DB.* TO '$DB'@'localhost';
@@ -20,7 +20,7 @@ USE $DB;
 SOURCE $BASEPATH/schema/db_init.sql;
 MYSQL_SCRIPT
 
-echo 'config created:'
+echo 'Config created:'
 tee application.properties << EOF
 # 数据源
 spring.datasource.yui.jdbc-url=jdbc:mysql://localhost:3306/$DB?characterEncoding=utf-8&useSSL=true&serverTimezone=Asia/Shanghai

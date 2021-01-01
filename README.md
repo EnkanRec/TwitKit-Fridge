@@ -27,13 +27,15 @@ sudo apt install openjdk-8-jre-headless openjdk-8-jdk-headless maven -y
   另外，目前来看jdk11除了编译警告较多以外，不影响使用。
 
 ## 快速安装
-
+<!--
 如果当前用户具有sudo权限，并且数据库加载了`unix_socket`插件（Ubuntu 18.04的默认配置），则可以使用根目录下的脚本进行快速安装。安装完成后建议取消sudo权限。
 
-<!-- - `test_init.sh`用于快速建立测试库，增加`--remove`参数用于移除。
+- `test_init.sh`用于快速建立测试库，增加`--remove`参数用于移除。
 - `build.sh`用于运行编译和运行测试。
 -->
 - `init_db_conf.sh`用于快速部署生产使用的数据库，用法为`init_db_conf.sh [dbname] [password]`，默认情况下生成同名的数据库/用户"twitkit-当前用户名"和一串随机密码，将其显示出来同时写入配置文件。
+
+- `get_prebuild.sh`用于拉取并解压预编译的程序文件，直接运行即可。
 
 - `start.sh`用于运行程序。
 
