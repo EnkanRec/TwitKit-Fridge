@@ -1,20 +1,17 @@
-ARG VER=0.0.1
-  
-FROM smartentry/alpine:3.13-0.4.4 AS builder
-ARG VER
-ARG VERSION=${VER}
-RUN apk update && \
-        apk add openjdk8 maven
-COPY fridge-src /opt/fridge-src
-RUN cd /opt/fridge-src && \
-        mvn clean && \
-        mvn package -Dmaven.test.skip=true
+FROM maven:3-openjdk-8
+WORKDIR /root
+COPY fridge-src fridge-src
+RUN mvn clean -f fridge-src/pom.xml
+RUN mvn package -f fridge-src/pom.xml -Dmaven.test.skip=true
 
-FROM smartentry/alpine:3.13-0.4.4
-MAINTAINER Zhaofeng Yang <yangzhaofengsteven@gmail.com>
-ARG VER
-ENV VERSION=${VER}
-COPY .docker $ASSETS_DIR
-RUN smartentry.sh build
-COPY --from=builder /opt/fridge-src/target/twitkit-fridge-${VERSION}.jar /srv/twitkit-fridge
-WORKDIR /srv/twitkit-fridge
+FROM openjdk:8-jre-alpine
+ENV JDBC_URL='jdbc:mysql://host.docker.internal:3306/fridge_test?characterEncoding=utf-8&useSSL=true&serverTimezone=Asia/Shanghai' \
+    USERNAME='fridge_test' \
+    PASSWORD='fridge_test'
+WORKDIR /root
+COPY --from=0 /root/fridge-src/target/twitkit-fridge-*.jar .
+CMD java -jar twitkit-fridge-*.jar \
+    --spring.datasource.yui.jdbc-url=${JDBC_URL} \
+    --spring.datasource.yui.username=${USERNAME} \
+    --spring.datasource.yui.password=${PASSWORD}
+EXPOSE 8220

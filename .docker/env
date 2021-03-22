@@ -1,7 +1,0 @@
-MYSQL_HOST = "localhost:3306"
-MYSQL_DATABASE = fridge
-MYSQL_CHARSET = "utf-8"
-USESSL = true
-TZ = Asia/Shanghai
-MYSQL_USER = fridge
-MYSQL_PASSWORD = fridge

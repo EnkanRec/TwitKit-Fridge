@@ -1,7 +1,0 @@
-#!/bin/bash
-set -x
-set -e
-mkdir -p /srv/twitkit-fridge
-apk update
-apk add openjdk8-jre tzdata
-rm -rf /var/cache/apk/*
